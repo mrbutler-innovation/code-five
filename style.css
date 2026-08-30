@@ -1,13 +1,14 @@
 :root {
-  --bg: #090b0d;
-  --panel: #11161a;
-  --panel-2: #0d1114;
-  --line: #2b343b;
-  --text: #edf2f4;
-  --muted: #8f9aa3;
+  --bg: #080b0d;
+  --panel: #11171b;
+  --panel-2: #0c1114;
+  --line: #2b363d;
+  --line-soft: #1b2429;
+  --text: #eef3f5;
+  --muted: #8c9aa3;
   --accent: #a7ff83;
   --accent-dim: #5f8e53;
-  --warning: #ffcc66;
+  --warning: #ffc95d;
 }
 
 * {
@@ -24,7 +25,7 @@ body {
 }
 
 body {
-  padding: 24px;
+  padding: 20px;
 }
 
 .shell {
@@ -34,163 +35,351 @@ body {
 }
 
 .terminal-card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
-  background:
-    linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.02)),
-    var(--panel);
+  background: var(--panel);
 }
+
+/*
+  SUBTLE TERMINAL SCAN LINES
+*/
+
+.terminal-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.16) 0,
+      rgba(255,255,255,0.16) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+
+/*
+  TOP BAR + GAME TOOLBAR
+*/
 
 .topbar,
 .game-toolbar {
+  position: relative;
+  z-index: 1;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 16px;
+
   padding: 14px 18px;
+
   border-bottom: 1px solid var(--line);
+
   background: var(--panel-2);
 }
 
 .brand,
 .toolbar-label {
-  color: var(--muted);
+  color: #a8b4bb;
+
   font-size: 0.82rem;
-  letter-spacing: 0.12em;
+
+  letter-spacing: 0.13em;
 }
 
 .status {
   display: flex;
   align-items: center;
+
   gap: 8px;
+
   color: var(--accent);
+
   font-size: 0.82rem;
+
   letter-spacing: 0.08em;
 }
 
 .dot {
   width: 9px;
   height: 9px;
+
   border-radius: 50%;
+
   background: var(--accent);
-  box-shadow: 0 0 10px rgba(167,255,131,0.5);
+
+  box-shadow:
+    0 0 11px rgba(167,255,131,0.55);
 }
 
+
+/*
+  LAUNCH SCREEN
+*/
+
 .launch-screen {
-  padding: 72px 24px 36px;
+  position: relative;
+  z-index: 1;
+
+  padding: 46px 24px 30px;
+
   text-align: center;
 }
 
-.eyebrow {
+.classification {
+  margin-bottom: 18px;
+
   color: var(--warning);
-  margin: 0 0 18px;
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
+
+  font-size: 0.78rem;
+
+  letter-spacing: 0.19em;
 }
+
+
+/*
+  LEVEL FIVE AGENCY SEAL
+*/
+
+.seal {
+  width: 62px;
+  height: 62px;
+
+  margin: 0 auto 20px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #48555d;
+  border-radius: 50%;
+
+  color: #c7d1d6;
+
+  font-weight: 700;
+  font-size: 1.55rem;
+
+  box-shadow:
+    inset 0 0 0 5px var(--panel),
+    inset 0 0 0 6px #2f3a41;
+}
+
+
+/*
+  TITLE
+*/
 
 h1 {
   margin: 0;
-  font-size: clamp(3rem, 8vw, 6rem);
+
+  font-size:
+    clamp(3.1rem, 8vw, 6rem);
+
   line-height: 0.95;
-  letter-spacing: 0.08em;
+
+  letter-spacing: 0.085em;
 }
 
 .subtitle {
-  margin: 14px 0 34px;
+  margin: 14px 0 32px;
+
   color: var(--muted);
-  letter-spacing: 0.18em;
+
+  letter-spacing: 0.19em;
 }
+
+
+/*
+  SYSTEM STATUS PANEL
+*/
 
 .brief {
   width: min(100%, 620px);
-  margin: 0 auto 34px;
-  padding: 20px;
+
+  margin: 0 auto 30px;
+
   border: 1px solid var(--line);
-  background: #0b0f12;
+
+  background: #0a0f12;
+
   text-align: left;
 }
 
-.brief p {
-  margin: 7px 0;
-  color: #d9e0e4;
-  font-size: 0.95rem;
+.brief-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr) auto;
+
+  gap: 18px;
+
+  padding: 12px 16px;
+
+  border-bottom:
+    1px solid var(--line-soft);
+
+  font-size: 0.86rem;
 }
+
+.brief-row:last-child {
+  border-bottom: 0;
+}
+
+.brief-row span {
+  color: #b6c0c6;
+}
+
+.brief-row strong {
+  color: var(--accent);
+
+  letter-spacing: 0.05em;
+}
+
+
+/*
+  BUTTONS
+*/
 
 .start-button,
 .restart-button {
   appearance: none;
-  border: 1px solid var(--accent-dim);
-  background: #162019;
+
+  border:
+    1px solid var(--accent-dim);
+
+  background: #142018;
+
   color: var(--accent);
+
   font-family: inherit;
   font-weight: 700;
-  letter-spacing: 0.08em;
+
+  letter-spacing: 0.085em;
+
   cursor: pointer;
 }
 
 .start-button {
-  min-width: 240px;
+  min-width: 250px;
+
   padding: 16px 22px;
-  font-size: 1rem;
+
+  font-size: 0.98rem;
+}
+
+.start-button:disabled {
+  cursor: wait;
+
+  color: #809080;
+
+  border-color: #39443b;
+
+  background: #101612;
 }
 
 .restart-button {
   padding: 10px 14px;
+
   font-size: 0.78rem;
 }
 
-.start-button:hover,
+.start-button:not(:disabled):hover,
 .restart-button:hover,
-.start-button:focus-visible,
+.start-button:not(:disabled):focus-visible,
 .restart-button:focus-visible {
   border-color: var(--accent);
+
   outline: none;
-  background: #1a271d;
+
+  background: #19271d;
 }
+
+
+/*
+  LAUNCH SCREEN FOOTER
+*/
 
 .footer-status {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
   gap: 10px 28px;
-  margin-top: 46px;
+
+  margin-top: 40px;
+
   color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+
+  font-size: 0.73rem;
+
+  letter-spacing: 0.085em;
 }
 
+
+/*
+  GAME SCREEN
+*/
+
 .game-screen {
-  padding-bottom: 16px;
+  position: relative;
+  z-index: 1;
+
+  padding-bottom: 14px;
 }
 
 .game-toolbar strong {
   display: block;
+
   margin-top: 3px;
+
   font-size: 1.05rem;
+
   letter-spacing: 0.08em;
 }
 
 .game-frame-wrap {
   background: #000;
-  border-top: 1px solid #15191c;
-  border-bottom: 1px solid var(--line);
+
+  border-bottom:
+    1px solid var(--line);
 }
 
 iframe {
   display: block;
+
   width: 100%;
-  height: 760px;
+  height: 740px;
+
   border: 0;
+
   background: #000;
 }
 
 .game-hint {
-  padding: 12px 18px 0;
+  padding: 11px 18px 0;
+
   color: var(--muted);
-  font-size: 0.78rem;
+
+  font-size: 0.72rem;
+
+  letter-spacing: 0.06em;
+
   text-align: center;
 }
 
+
+/*
+  SMALLER SCREENS
+*/
+
 @media (max-width: 700px) {
+
   body {
     padding: 0;
   }
@@ -203,23 +392,47 @@ iframe {
   .topbar,
   .game-toolbar {
     align-items: flex-start;
+
     flex-direction: column;
   }
 
   .launch-screen {
-    padding: 48px 16px 28px;
+    padding: 36px 16px 24px;
   }
 
-  .brief {
-    padding: 16px;
+  .brief-row {
+    grid-template-columns: 1fr;
+
+    gap: 5px;
   }
 
   iframe {
-    height: 680px;
+    height: 660px;
   }
 
   .footer-status {
     flex-direction: column;
+
     gap: 8px;
   }
+
+}
+
+
+/*
+  ACCESSIBILITY:
+  REMOVE ANIMATION FOR USERS WHO
+  REQUEST REDUCED MOTION
+*/
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
 }

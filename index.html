@@ -6,48 +6,133 @@
   <title>CODE FIVE // Agency Terminal</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <main class="shell">
+
     <section class="terminal-card" aria-labelledby="codefive-title">
+
+      <!-- TOP STATUS BAR -->
       <div class="topbar">
-        <div class="brand">AGENCY // SECURE OPERATIONS NETWORK</div>
-        <div class="status"><span class="dot"></span> ONLINE</div>
-      </div>
 
-      <div id="launch-screen" class="launch-screen">
-        <p class="eyebrow">CLASSIFIED // LEVEL FIVE</p>
-        <h1 id="codefive-title">CODE FIVE</h1>
-        <p class="subtitle">FIELD AGENT TERMINAL</p>
-
-        <div class="brief">
-          <p>SECURE CONNECTION ESTABLISHED.</p>
-          <p>AGENT IDENTIFICATION: 42</p>
-          <p>MISSION PACKAGE: READY</p>
+        <div class="brand">
+          AGENCY // SECURE OPERATIONS NETWORK
         </div>
 
-        <button id="start-button" class="start-button" type="button">
-          INITIALISE MISSION
+        <div class="status">
+          <span class="dot" aria-hidden="true"></span>
+          ONLINE
+        </div>
+
+      </div>
+
+
+      <!-- LAUNCH SCREEN -->
+      <div id="launch-screen" class="launch-screen">
+
+        <div class="classification">
+          CLASSIFIED // LEVEL FIVE
+        </div>
+
+        <div class="seal" aria-hidden="true">
+          <span>5</span>
+        </div>
+
+        <h1 id="codefive-title">
+          CODE FIVE
+        </h1>
+
+        <p class="subtitle">
+          FIELD AGENT TERMINAL
+        </p>
+
+
+        <!-- SYSTEM STATUS -->
+        <div class="brief">
+
+          <div class="brief-row">
+            <span>SECURE CONNECTION</span>
+            <strong id="connection-state">
+              ESTABLISHING...
+            </strong>
+          </div>
+
+          <div class="brief-row">
+            <span>AGENT IDENTIFICATION</span>
+            <strong>42</strong>
+          </div>
+
+          <div class="brief-row">
+            <span>MISSION PACKAGE</span>
+            <strong id="package-state">
+              VERIFYING...
+            </strong>
+          </div>
+
+        </div>
+
+
+        <!-- START BUTTON -->
+        <button
+          id="start-button"
+          class="start-button"
+          type="button"
+          disabled
+        >
+          INITIALISING...
         </button>
 
+
+        <!-- TERMINAL FOOTER -->
         <div class="footer-status">
+
           <span>CONNECTION: SECURE</span>
+
           <span>TERMINAL: 42</span>
-          <span>STATUS: READY</span>
+
+          <span>CLEARANCE: FIVE</span>
+
         </div>
+
       </div>
 
-      <div id="game-screen" class="game-screen" hidden>
+
+      <!-- GAME SCREEN -->
+      <div
+        id="game-screen"
+        class="game-screen"
+        hidden
+      >
+
         <div class="game-toolbar">
+
           <div>
-            <span class="toolbar-label">ACTIVE SESSION</span>
-            <strong>CODE FIVE</strong>
+
+            <span class="toolbar-label">
+              ACTIVE SESSION
+            </span>
+
+            <strong>
+              CODE FIVE
+            </strong>
+
           </div>
-          <button id="restart-button" class="restart-button" type="button">
+
+
+          <button
+            id="restart-button"
+            class="restart-button"
+            type="button"
+          >
             RESTART MISSION
           </button>
+
         </div>
 
+
         <div class="game-frame-wrap">
+
           <iframe
             id="game-frame"
             title="CODE FIVE text adventure"
@@ -55,50 +140,196 @@
             loading="eager"
             allow="autoplay; fullscreen 'none'"
           ></iframe>
+
         </div>
+
 
         <div class="game-hint">
-          Click inside the terminal before typing commands.
+          CLICK INSIDE THE TERMINAL BEFORE TYPING COMMANDS
         </div>
+
       </div>
+
     </section>
+
   </main>
 
-  <script>
-    const launchScreen = document.getElementById('launch-screen');
-    const gameScreen = document.getElementById('game-screen');
-    const startButton = document.getElementById('start-button');
-    const restartButton = document.getElementById('restart-button');
-    const gameFrame = document.getElementById('game-frame');
 
-    const GAME_URL = 'CODE_FIVE.html?v=3';
+  <script>
+
+    const launchScreen =
+      document.getElementById('launch-screen');
+
+    const gameScreen =
+      document.getElementById('game-screen');
+
+    const startButton =
+      document.getElementById('start-button');
+
+    const restartButton =
+      document.getElementById('restart-button');
+
+    const gameFrame =
+      document.getElementById('game-frame');
+
+    const connectionState =
+      document.getElementById('connection-state');
+
+    const packageState =
+      document.getElementById('package-state');
+
+
+    /*
+      IMPORTANT:
+      This must point to the Adventuron game,
+      NOT index.html.
+    */
+
+    const GAME_URL = 'CODE_FIVE.html?v=4';
+
+
+    /*
+      Respect accessibility settings.
+      Users requesting reduced motion skip
+      the short boot sequence.
+    */
+
+    const reduceMotion =
+      window.matchMedia &&
+      window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+
+    function setReady() {
+
+      connectionState.textContent =
+        'SECURE';
+
+      packageState.textContent =
+        'READY';
+
+      startButton.textContent =
+        'INITIALISE MISSION';
+
+      startButton.disabled =
+        false;
+
+    }
+
+
+    /*
+      SHORT AGENCY TERMINAL BOOT SEQUENCE
+    */
+
+    if (reduceMotion) {
+
+      setReady();
+
+    } else {
+
+      window.setTimeout(() => {
+
+        connectionState.textContent =
+          'SECURE';
+
+      }, 450);
+
+
+      window.setTimeout(() => {
+
+        packageState.textContent =
+          'READY';
+
+        startButton.textContent =
+          'INITIALISE MISSION';
+
+        startButton.disabled =
+          false;
+
+      }, 950);
+
+    }
+
+
+    /*
+      LAUNCH CODE FIVE
+    */
 
     function launchGame() {
-      gameFrame.src = GAME_URL;
-      launchScreen.hidden = true;
-      gameScreen.hidden = false;
 
-      setTimeout(() => {
+      gameFrame.src =
+        GAME_URL;
+
+      launchScreen.hidden =
+        true;
+
+      gameScreen.hidden =
+        false;
+
+
+      window.setTimeout(() => {
+
         gameFrame.focus();
+
       }, 300);
+
     }
+
+
+    /*
+      RESTART CODE FIVE
+
+      Confirmation prevents students
+      accidentally wiping their current
+      session.
+    */
 
     function restartGame() {
-      const confirmed = window.confirm(
-        'Restart CODE FIVE from the beginning? Current progress will be lost.'
-      );
 
-      if (!confirmed) return;
+      const confirmed =
+        window.confirm(
+          'Restart CODE FIVE from the beginning? Current progress will be lost.'
+        );
 
-      gameFrame.src = 'about:blank';
 
-      setTimeout(() => {
-        gameFrame.src = GAME_URL;
-      }, 50);
+      if (!confirmed) {
+        return;
+      }
+
+
+      gameFrame.src =
+        'about:blank';
+
+
+      window.setTimeout(() => {
+
+        gameFrame.src =
+          GAME_URL;
+
+        gameFrame.focus();
+
+      }, 80);
+
     }
 
-    startButton.addEventListener('click', launchGame);
-    restartButton.addEventListener('click', restartGame);
+
+    /*
+      BUTTON CONTROLS
+    */
+
+    startButton.addEventListener(
+      'click',
+      launchGame
+    );
+
+
+    restartButton.addEventListener(
+      'click',
+      restartGame
+    );
+
   </script>
+
 </body>
 </html>

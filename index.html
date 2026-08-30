@@ -53,7 +53,7 @@
             title="CODE FIVE text adventure"
             src="about:blank"
             loading="eager"
-            allow="autoplay"
+            allow="autoplay; fullscreen 'none'"
           ></iframe>
         </div>
 
@@ -71,7 +71,7 @@
     const restartButton = document.getElementById('restart-button');
     const gameFrame = document.getElementById('game-frame');
 
-    const GAME_URL = 'CODE_FIVE.html';
+    const GAME_URL = 'CODE_FIVE.html?v=3';
 
     function launchGame() {
       gameFrame.src = GAME_URL;

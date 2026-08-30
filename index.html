@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODE FIVE // Agency Terminal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="terminal-card" aria-labelledby="codefive-title">
+      <div class="topbar">
+        <div class="brand">AGENCY // SECURE OPERATIONS NETWORK</div>
+        <div class="status"><span class="dot"></span> ONLINE</div>
+      </div>
+
+      <div id="launch-screen" class="launch-screen">
+        <p class="eyebrow">CLASSIFIED // LEVEL FIVE</p>
+        <h1 id="codefive-title">CODE FIVE</h1>
+        <p class="subtitle">FIELD AGENT TERMINAL</p>
+
+        <div class="brief">
+          <p>SECURE CONNECTION ESTABLISHED.</p>
+          <p>AGENT IDENTIFICATION: 42</p>
+          <p>MISSION PACKAGE: READY</p>
+        </div>
+
+        <button id="start-button" class="start-button" type="button">
+          INITIALISE MISSION
+        </button>
+
+        <div class="footer-status">
+          <span>CONNECTION: SECURE</span>
+          <span>TERMINAL: 42</span>
+          <span>STATUS: READY</span>
+        </div>
+      </div>
+
+      <div id="game-screen" class="game-screen" hidden>
+        <div class="game-toolbar">
+          <div>
+            <span class="toolbar-label">ACTIVE SESSION</span>
+            <strong>CODE FIVE</strong>
+          </div>
+          <button id="restart-button" class="restart-button" type="button">
+            RESTART MISSION
+          </button>
+        </div>
+
+        <div class="game-frame-wrap">
+          <iframe
+            id="game-frame"
+            title="CODE FIVE text adventure"
+            src="about:blank"
+            loading="eager"
+            allow="autoplay"
+          ></iframe>
+        </div>
+
+        <div class="game-hint">
+          Click inside the terminal before typing commands.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const launchScreen = document.getElementById('launch-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const startButton = document.getElementById('start-button');
+    const restartButton = document.getElementById('restart-button');
+    const gameFrame = document.getElementById('game-frame');
+
+    const GAME_URL = 'CODE_FIVE.html';
+
+    function launchGame() {
+      gameFrame.src = GAME_URL;
+      launchScreen.hidden = true;
+      gameScreen.hidden = false;
+
+      setTimeout(() => {
+        gameFrame.focus();
+      }, 300);
+    }
+
+    function restartGame() {
+      const confirmed = window.confirm(
+        'Restart CODE FIVE from the beginning? Current progress will be lost.'
+      );
+
+      if (!confirmed) return;
+
+      gameFrame.src = 'about:blank';
+
+      setTimeout(() => {
+        gameFrame.src = GAME_URL;
+      }, 50);
+    }
+
+    startButton.addEventListener('click', launchGame);
+    restartButton.addEventListener('click', restartGame);
+  </script>
+</body>
+</html>
